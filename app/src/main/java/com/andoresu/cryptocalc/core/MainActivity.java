@@ -1,0 +1,184 @@
+package com.andoresu.cryptocalc.core;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.andoresu.cryptocalc.R;
+import com.andoresu.cryptocalc.authorization.GetUserCallback;
+import com.andoresu.cryptocalc.authorization.LoginActivity;
+import com.andoresu.cryptocalc.authorization.UserRequest;
+import com.andoresu.cryptocalc.authorization.data.FacebookUser;
+import com.andoresu.cryptocalc.client.ErrorResponse;
+import com.andoresu.cryptocalc.core.calculator.CalculatorFragment;
+import com.andoresu.cryptocalc.utils.BaseActivity;
+import com.andoresu.cryptocalc.utils.BaseFragment;
+import com.andoresu.cryptocalc.core.percentage.PercentageFragment;
+import com.andoresu.cryptocalc.utils.DeferredFragmentTransaction;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
+import com.facebook.login.LoginManager;
+
+
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static com.andoresu.cryptocalc.utils.MyUtils.glideRequestOptions;
+
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, GetUserCallback.IGetUserResponse {
+
+    private MainContract.ActionsListener actionsListener;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+
+    private HeaderViewHolder headerViewHolder;
+
+    private BaseFragment currentFragment;
+
+
+
+
+    @Override
+    public void handleView() {
+
+        setSupportActionBar(toolbar);
+        setTitle("      " + getString(R.string.app_name));
+
+        headerViewHolder = new HeaderViewHolder(navigationView.getHeaderView(0));
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+        setCalculatorFragment();
+        UserRequest.makeUserRequest(new GetUserCallback(this).getCallback());
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.navCalculator:
+                setCalculatorFragment();
+                break;
+            case R.id.navGallery:
+                setPercentageFragment();
+                break;
+            case R.id.navLogout:
+                LoginManager.getInstance().logOut();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void showProgressIndicator(boolean active) {
+
+    }
+
+    @Override
+    public void showGlobalError(ErrorResponse errorResponse) {
+
+    }
+
+    @Override
+    public void onLogoutFinish() {
+
+    }
+
+    public void setCalculatorFragment(){
+        CalculatorFragment fragment = CalculatorFragment.newInstance();
+        changeFragment(fragment);
+    }
+
+    public void setPercentageFragment(){
+        PercentageFragment fragment = PercentageFragment.newInstance();
+        changeFragment(fragment);
+    }
+
+    private void changeFragment(BaseFragment fragment){
+        currentFragment = changeFragment(fragment, R.id.mainFragment);
+    }
+
+    @Override
+    public void onCompleted(FacebookUser user) {
+        Glide.with(this)
+                .load(user.picture)
+                .apply(glideRequestOptions(this))
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                .into(headerViewHolder.profilePhoto);
+
+        headerViewHolder.navHeaderEmailTextView.setText(user.email);
+        headerViewHolder.navHeaderNameTextView.setText(user.name);
+    }
+
+    static class HeaderViewHolder {
+
+        @BindView(R.id.navHeaderNameTextView)
+        TextView navHeaderNameTextView;
+
+        @BindView(R.id.navHeaderEmailTextView)
+        TextView navHeaderEmailTextView;
+
+        @BindView(R.id.imageView)
+        ImageView profilePhoto;
+
+        HeaderViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+
+    }
+}

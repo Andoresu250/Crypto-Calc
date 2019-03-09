@@ -1,0 +1,107 @@
+<resources>
+    <string name="app_name">Crypto Calc</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="input_user">Usuario</string>
+    <string name="input_password">Contraseña</string>
+    <string name="login_btn">Iniciar Sesión</string>
+
+
+    <string name="facebook_app_id">2451596484915087</string>
+    <string name="fb_login_protocol_scheme">fb2451596484915087</string>
+
+
+    <!--General Text-->
+    <string name="logout">Cerrar Sesíon</string>
+    <string name="map_config">Configuracion de mapa</string>
+    <string name="dialog_default_positive">Si</string>
+    <string name="dialog_default_negative">No</string>
+    <string name="dialog_default_close">Cerrar</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancelar</string>
+    <string name="close">Cerrar</string>
+    <string name="any">Ninguno</string>
+    <string name="reject">Rechazar</string>
+    <string name="start">Empezar</string>
+    <string name="start_without_code">Empezar sin codigo de verificacion</string>
+    <string name="percentage">%1$d %%</string>
+    <string name="completed">Completado</string>
+    <string name="downloading">Descargando…</string>
+    <string name="downloaded">Descargado</string>
+
+    <!--Errors-->
+    <string name="error_no_permission">Operacíon fallida por falta de permisos</string>
+    <string name="error_blank"> El campo %1$s no puede estar en blanco </string>
+    <string name="error_numeric"> El campo %1$s solo puede contener numeros </string>
+    <string name="error_letters"> El campo %1$s solo puede contener letras </string>
+    <string name="error_length"> El campo %1$s debe ser de longitud %2$s </string>
+    <string name="error_user_type"> Este usuario no puede usar esta aplicación </string>
+    <string name="error_user_saved"> No se pudo guardar la información del usuario en el dispositivo, intente otra vez, si el error persiste comuniquese con soporte técnico </string>
+    <string name="error_user_null"> Informacion de usuario nula, no se puede proceder, intente otra vez, si el error persiste comuniquese con soporte técnico </string>
+    <string name="error_token_save"> Error guardado información de sesión, intente otra vez, si el error persiste comuniquese con soporte técnico </string>
+    <string name="error_user"> Error en el inicio de sesión, intente otra vez, si el error persiste comuniquese con soporte técnico </string>
+    <string name="error_request_general"> Error al realizar esta acción, intente otra vez, si el error persiste comuniquese con soporte técnico </string>
+    <string name="error_fingerprint_not_found">Este usuario no tiene una huella registrada, por favor registre su huella primero y vuelva a intentar</string>
+
+    <string name="error_car_saved"> La configuracíon fue realizada exitosamente pero no se pudo guardar la información del vehículo en el dispositivo, comuniquese con soporte técnico </string>
+
+    <string name="error_config_not_found">Este dispositivo no cuenta con una configuración previa, consulte con soporte técnico si este error es repentino</string>
+
+    <string name="error_ride_variables_not_found">Este dispositivo no tiene la información necesaria para prestar el servicio, intente otra vez, si el error persiste comuniquese con soporte técnico</string>
+
+    <string name="error_dialog_title"> Error </string>
+    <string name="error_dialog_ok"> Entiendo </string>
+    <string name="customers">Clientes</string>
+    <string name="loans">Prestamos</string>
+    <string name="config">Configuracion</string>
+    <string name="settings">Configurar Variables</string>
+    <string name="profile">Perfil</string>
+    <string name="lbl_empty_list">No hay elementos en esta lista</string>
+    <string name="lbld_personName"><b>Nombre:</b> %1$s</string>
+    <string name="call">LLamar</string>
+    <string name="lbld_personPhone"><b>Telefono:</b> %1$s </string>
+    <string name="lbld_personAddress"><b>Direccion:</b> %1$s </string>
+    <string name="input_personFirstNames">Nombres</string>
+    <string name="input_personLastNames">Apellidos</string>
+    <string name="input_personIdentification">Cedula</string>
+    <string name="input_personPhone">Telefono/Celular</string>
+    <string name="input_personAddress">Direccion</string>
+    <string name="save">Guardar</string>
+    <string name="search">Buscar</string>
+    <string name="input_personFullName">Nombre</string>
+    <string name="input_loanDebt">Total Deuda</string>
+    <string name="input_loanPaid">Total Pagado</string>
+    <string name="input_loanLastPaid">Ultimo Pago</string>
+    <string name="input_loanNextPaid">Siguiente Pago</string>
+    <string name="input_loanFees">Total Cuotas</string>
+    <string name="input_loanFeesFulfilled">Cuotas Pagadas</string>
+    <string name="input_loanAmount">Monto Solicitado</string>
+    <string name="input_loanInterest">Interes</string>
+    <string name="input_loanExpiredPayments">Cuotas Vencidas</string>
+    <string name="input_loanFrequency">Frecuencia</string>
+    <string name="detail_btn">Ver Detalle</string>
+    <string name="lbl_fees">Cuotas</string>
+    <string name="input_paymentNumber">Cuota Numero</string>
+    <string name="input_paymentState">Estado</string>
+    <string name="input_paymentValue">Valor</string>
+    <string name="input_paymentPaidValue">Valor Pagado</string>
+    <string name="input_paymentDate">Fecha De Pago</string>
+    <string name="input_paymentPaidAt">Pagado El</string>
+    <string name="input_loanFeesDays">Dias</string>
+    <string name="generate">Generar</string>
+    <string name="calculator">Cálculadora</string>
+    <string name="salePercentage">Porcentaje Venta</string>
+    <string name="input_btc">Bitcoins</string>
+    <string name="input_value">Valor</string>
+    <string name="ok">Okey</string>
+    <string name="input_sellPrice">Precio de Venta</string>
+    <string name="input_value_btc">Valor Bitcoin</string>
+    <string name="input_phone">Telefono Celular</string>
+</resources>
+

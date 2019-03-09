@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Button
+        android:id="@+id/countryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Seleccionar Pais"
+        android:drawableEnd="@drawable/ic_menu_down"
+        style="@style/PrimaryButtonNoBackground"
+        />
+
+    <com.andoresu.cryptocalc.utils.PrefixEditText
+        android:id="@+id/phoneEditText"
+        style="@style/BaseEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/countryButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="30dp"
+        android:tag="+57 "
+        android:imeOptions="actionSend"
+        />
+
+    <TextView
+        android:id="@+id/phoneLabelTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        app:layout_constraintTop_toBottomOf="@id/countryButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:labelFor="@+id/btcEditText"
+        android:text="@string/input_phone"
+        style="@style/LabelTextView"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

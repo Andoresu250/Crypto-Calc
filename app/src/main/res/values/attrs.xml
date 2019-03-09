@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ds">
+
+        <attr name="colorPrimary" format="color" />
+        <attr name="colorPrimaryDark" format="color" />
+        <attr name="colorAccent" format="color" />
+        <attr name="colorPrimaryText" format="color" />
+        <attr name="colorSecondaryText" format="color" />
+        <attr name="colorIcon" format="color" />
+        <attr name="colorDivider" format="color" />
+        <attr name="colorAlertError" format="color" />
+        <attr name="colorBackground" format="color" />
+        <attr name="colorCardBackground" format="color" />
+        <attr name="colorTransparent" format="color" />
+        <attr name="cardStyle" format="reference" />
+
+    </declare-styleable>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorSoftBlack">#222428</color>
+    <color name="colorStatusBar">#212121</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorPrimary">#FF9800</color>
+    <color name="colorPrimaryDark">#F57C00</color>
+    <color name="colorPrimaryLight">#FFE0B2</color>
+    <color name="colorAccent">#FF5722</color>
+    <color name="colorAccentDark">#ba401a</color>
+    <color name="colorAccentLight">#fa774e</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="colorLabelText">#a3a3a3</color>
+    <color name="colorIcon"> #FFFFFF </color>
+    <color name="colorDivider"> #BDBDBD </color>
+    <color name="colorAlertError"> #d32f2f </color>
+    <color name="colorAlert">#d32f2f</color>
+    <color name="colorAlertDark">#d90c0c</color>
+    <color name="colorAlertLight">#d97171</color>
+    <color name="colorBackground">#ebeff0</color>
+    <color name="colorCardBackground">#ffffff</color>
+
+
+
+    <color name="colorPrimaryNight">@color/colorPrimary</color>
+    <color name="colorPrimaryDarkNight">@color/colorPrimaryDark</color>
+    <color name="colorPrimaryLightNight">@color/colorPrimaryLight</color>
+    <color name="colorAccentNight">@color/colorAccent</color>
+    <color name="colorPrimaryTextNight">#ffffff</color>
+    <color name="colorSecondaryTextNight">#e2e2e2</color>
+    <color name="colorIconNight"> #FFFFFF </color>
+    <color name="colorDividerNight"> #BDBDBD </color>
+    <color name="colorAlertErrorNight"> #d32f2f </color>
+    <color name="colorBackgroundNight">#000000</color>
+    <color name="colorCardBackgroundNight">#222222</color>
+
+    <color name="colorWhite"> #FFFFFF </color>
+
+</resources>

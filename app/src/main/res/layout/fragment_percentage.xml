@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/activity"
+    android:background="@color/colorPrimary">
+
+    <ScrollView
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/fragmentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/valueLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:paddingStart="@dimen/activity"
+                android:paddingEnd="@dimen/activity"
+                android:paddingTop="@dimen/halfMargin"
+                android:layout_marginTop="@dimen/activity"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+
+                <com.andoresu.cryptocalc.utils.CurrencyEditText
+                    android:id="@+id/valueEditText"
+                    style="@style/BaseEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/currencyButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="11dp"
+                    android:tag=""
+                    android:imeOptions="actionSend"
+                    android:enabled="false"
+                    />
+
+                <TextView
+                    android:id="@+id/valueLabelTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:labelFor="@+id/valueEditText"
+                    android:text="@string/input_value_btc"
+                    style="@style/LabelTextView"
+                    />
+
+                <Button
+                    android:id="@+id/currencyButton"
+                    style="@style/TransparentButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_menu_down"
+                    android:text="USD($)"
+                    android:paddingBottom="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/sellPriceLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:paddingStart="@dimen/activity"
+                android:paddingEnd="@dimen/activity"
+                android:paddingTop="@dimen/halfMargin"
+                app:layout_constraintTop_toBottomOf="@id/valueLayout"
+                android:layout_marginTop="40dp"
+                >
+
+                <com.andoresu.cryptocalc.utils.PrefixEditText
+                    android:id="@+id/sellPriceEditText"
+                    style="@style/BaseEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="11dp"
+                    android:tag="USD($) "
+                    android:imeOptions="actionSend"
+                    />
+
+                <TextView
+                    android:id="@+id/sellPriceLabelTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:labelFor="@+id/sellPriceEditText"
+                    android:text="@string/input_sellPrice"
+                    style="@style/LabelTextView"
+                    />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/percentageLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity"
+                android:background="@color/colorWhite"
+                android:paddingStart="@dimen/activity"
+                android:paddingTop="@dimen/halfMargin"
+                android:paddingEnd="@dimen/activity"
+                android:paddingBottom="@dimen/halfMargin"
+                app:layout_constraintTop_toBottomOf="@id/sellPriceLayout">
+
+                <TextView
+                    android:id="@+id/percentageTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="0.0"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="25sp"
+                    app:layout_constraintEnd_toStartOf="@+id/percentageSymbolTextView"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/percentageSymbolTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="%"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/percentageTextView"
+                    />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <Button
+                android:id="@+id/calculateButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Calcular %"
+                app:layout_constraintTop_toBottomOf="@id/percentageLayout"
+                android:layout_marginTop="30dp"
+                style="@style/InvertButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <Button
+                android:id="@+id/cleanAllButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorTransparent"
+                android:text="Limpiar Todo"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintTop_toBottomOf="@id/calculateButton"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginTop="@dimen/activity"
+                />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyleLarge"
+        android:progressTint="@color/colorSoftBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

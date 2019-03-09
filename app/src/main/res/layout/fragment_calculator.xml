@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/activity"
+    android:background="@color/colorPrimary">
+
+    <ScrollView
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/fragmentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/btcLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:paddingStart="@dimen/activity"
+                android:paddingEnd="@dimen/activity"
+                android:paddingTop="@dimen/halfMargin"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+                <com.andoresu.cryptocalc.utils.PrefixEditText
+                    android:id="@+id/btcEditText"
+                    style="@style/BaseEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="11dp"
+                    android:tag="Ƀ "
+                    android:imeOptions="actionSend"
+                    />
+
+                <TextView
+                    android:id="@+id/btcLabelTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:labelFor="@+id/btcEditText"
+                    android:text="@string/input_btc"
+                    style="@style/LabelTextView"
+                    />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+            <ImageView
+                android:id="@+id/reverseImageButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toBottomOf="@id/btcLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_reverse"
+                style="@style/TransparentButton"
+                android:layout_marginTop="@dimen/activity"
+                />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/valueLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:paddingStart="@dimen/activity"
+                android:paddingEnd="@dimen/activity"
+                android:paddingTop="@dimen/halfMargin"
+                app:layout_constraintTop_toBottomOf="@id/reverseImageButton"
+                android:layout_marginTop="@dimen/activity"
+                >
+
+                <com.andoresu.cryptocalc.utils.CurrencyEditText
+                    android:id="@+id/valueEditText"
+                    style="@style/BaseEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/currencyButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="11dp"
+                    android:tag=""
+                    android:imeOptions="actionSend"
+                    />
+
+                <TextView
+                    android:id="@+id/valueLabelTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:labelFor="@+id/valueEditText"
+                    android:text="@string/input_value"
+                    style="@style/LabelTextView"
+                    />
+
+                <Button
+                    android:id="@+id/currencyButton"
+                    style="@style/TransparentButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_menu_down"
+                    android:text="USD($)"
+                    android:paddingBottom="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/percentageLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity"
+                android:background="@color/colorWhite"
+                android:paddingStart="@dimen/activity"
+                android:paddingTop="@dimen/halfMargin"
+                android:paddingEnd="@dimen/activity"
+                android:paddingBottom="@dimen/halfMargin"
+                app:layout_constraintTop_toBottomOf="@id/valueLayout">
+
+                <ImageButton
+                    android:id="@+id/minusButton"
+                    style="@style/TransparentButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:tint="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_minus" />
+
+                <ImageButton
+                    android:id="@+id/plusButton"
+                    style="@style/TransparentButton"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:tint="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_plus" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/divider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/percentageTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="0.0"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/percentageSymbolTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="%"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorDivider"
+                    app:layout_constraintTop_toBottomOf="@id/minusButton" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/halfMargin"
+                    android:id="@+id/percent01Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    style="@style/PercentageTextView"
+                    android:text="+0.1%"
+                    app:layout_constraintEnd_toStartOf="@+id/percent05Button"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/halfMargin"
+                    android:id="@+id/percent05Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    style="@style/PercentageTextView"
+                    android:text="+0.5%"
+                    app:layout_constraintEnd_toStartOf="@+id/percent10Button"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/percent01Button"
+                    app:layout_constraintTop_toBottomOf="@id/divider" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/halfMargin"
+                    android:id="@+id/percent10Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    style="@style/PercentageTextView"
+                    android:text="+1.0%"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/percent05Button"
+                    app:layout_constraintTop_toBottomOf="@id/divider" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <Button
+                android:id="@+id/convertButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Convertir"
+                app:layout_constraintTop_toBottomOf="@id/percentageLayout"
+                android:layout_marginTop="30dp"
+                style="@style/InvertButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <Button
+                android:id="@+id/cleanAllButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorTransparent"
+                android:text="Limpiar Todo"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintTop_toBottomOf="@id/convertButton"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginTop="@dimen/activity"
+                />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+
+
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyleLarge"
+        android:progressTint="@color/colorSoftBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
