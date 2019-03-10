@@ -1,11 +1,13 @@
 package com.andoresu.cryptocalc.core;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -41,6 +43,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.andoresu.cryptocalc.utils.MyUtils.glideRequestOptions;
+import static com.andoresu.cryptocalc.utils.MyUtils.showErrorDialog;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, GetUserCallback.IGetUserResponse {
 
@@ -95,7 +98,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            int fragments = fragmentManager.getBackStackEntryCount();
+            if (fragments >= 1) {
+                showErrorDialog(this, "Alerta", "Desea salir de la aplicacion?", (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                    finish();
+                }, (dialogInterface, i) -> dialogInterface.dismiss());
+            } else if (fragmentManager.getBackStackEntryCount() > 1) {
+                Log.i(TAG, "onBackPressed: 1");
+                Log.i(TAG, "onBackPressed: B " + currentFragment.getTag());
+                fragmentManager.popBackStackImmediate();
+                currentFragment = (BaseFragment) fragmentManager.findFragmentById(R.id.mainFragment);
+                Log.i(TAG, "onBackPressed: A " + currentFragment.getTag());
+                checkItemMenu(currentFragment);
+            } else {
+                Log.i(TAG, "onBackPressed: 2");
+                super.onBackPressed();
+            }
         }
     }
 
@@ -109,14 +129,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.navCalculator:
                 setCalculatorFragment();
                 break;
-            case R.id.navGallery:
+            case R.id.navPercentage:
                 setPercentageFragment();
                 break;
             case R.id.navLogout:
-                LoginManager.getInstance().logOut();
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                showErrorDialog(this, "Alerta", "Desea cerrar sesion?", (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                    LoginManager.getInstance().logOut();
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }, (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                    checkItemMenu(currentFragment);
+                });
                 break;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -150,7 +176,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void changeFragment(BaseFragment fragment){
-        currentFragment = changeFragment(fragment, R.id.mainFragment);
+        BaseFragment newFragment = changeFragment(fragment, R.id.mainFragment);
+        if(newFragment != null){
+            currentFragment = newFragment;
+        }
+        checkItemMenu(currentFragment);
     }
 
     @Override
@@ -163,6 +193,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         headerViewHolder.navHeaderEmailTextView.setText(user.email);
         headerViewHolder.navHeaderNameTextView.setText(user.name);
+    }
+
+    private void checkItemMenu(@NonNull BaseFragment baseFragment){
+        if(navigationView == null){
+            return;
+        }
+        if(baseFragment instanceof CalculatorFragment){
+            navigationView.setCheckedItem(R.id.navCalculator);
+            return;
+        }
+        if(baseFragment instanceof PercentageFragment){
+            navigationView.setCheckedItem(R.id.navPercentage);
+            return;
+        }
     }
 
     static class HeaderViewHolder {

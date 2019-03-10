@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.SpannedString;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
@@ -182,7 +183,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     }
 
-    public void replaceFragmentWithQueque(@IdRes int contentFrameId, BaseFragment replacingFragment) {
+    public void replaceFragmentWithQueue(@IdRes int contentFrameId, BaseFragment replacingFragment) {
         if (!isRunning) {
             DeferredFragmentTransaction deferredFragmentTransaction = new DeferredFragmentTransaction() {
                 @Override
@@ -199,7 +200,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         }
     }
 
-    public void showDialogFragmentWithQueque(BaseDialogFragment dialogFragment) {
+    public void showDialogFragmentWithQueue(BaseDialogFragment dialogFragment) {
         if (!isRunning) {
             DeferredDialogFragmentTransaction deferredFragmentTransaction = new DeferredDialogFragmentTransaction() {
                 @Override
@@ -216,8 +217,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     public BaseFragment changeFragment(BaseFragment fragment, @IdRes int contentFrameId){
         FragmentManager fragmentManager = getSupportFragmentManager();
+        BaseFragment currentFragment = (BaseFragment) fragmentManager.findFragmentById(contentFrameId);
+        if(currentFragment != null && fragment.getClass().toString().equals(currentFragment.getTag())){
+            return null;
+        }
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(contentFrameId, fragment);
+        fragmentTransaction.replace(contentFrameId, fragment, fragment.getClass().toString());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         return fragment;

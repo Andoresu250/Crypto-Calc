@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.andoresu.cryptocalc.R;
 import com.andoresu.cryptocalc.authorization.data.FacebookUser;
-import com.andoresu.cryptocalc.client.ErrorResponse;
 import com.andoresu.cryptocalc.core.MainActivity;
 import com.andoresu.cryptocalc.utils.BaseActivity;
 import com.facebook.AccessToken;
@@ -53,7 +52,7 @@ public class LoginActivity extends BaseActivity implements GetUserCallback.IGetU
 //                startActivity(intent);
 //                finish();
                 PhoneDialogFragment phoneDialogFragment = PhoneDialogFragment.newInstance(LoginActivity.this);
-                showDialogFragmentWithQueque(phoneDialogFragment);
+                showDialogFragmentWithQueue(phoneDialogFragment);
 
             }
 

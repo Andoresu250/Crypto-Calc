@@ -175,6 +175,9 @@ public class CalculatorFragment extends BaseFragment implements CalculatorContra
     @Override
     public void showCalculatorResponse(CalculatorResponse response) {
         this.calculatorResponse = response;
+        if(baseFragment == null){
+            return;
+        }
         percentageTextView.setText(this.percentage.toString());
         if(response.btc != null){
 //            response.btc = Math.round(response.btc * 100.0) / 100.0;

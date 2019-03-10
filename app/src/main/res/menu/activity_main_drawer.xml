@@ -9,7 +9,7 @@
             android:icon="@drawable/ic_calc"
             android:title="@string/calculator" />
         <item
-            android:id="@+id/navGallery"
+            android:id="@+id/navPercentage"
             android:icon="@drawable/ic_chart"
             android:title="@string/salePercentage" />
         <item

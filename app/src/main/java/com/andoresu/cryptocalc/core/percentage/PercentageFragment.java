@@ -106,6 +106,9 @@ public class PercentageFragment extends BaseFragment implements CalculatorContra
     @Override
     public void showCalculatorResponse(CalculatorResponse response) {
         this.calculatorResponse = response;
+        if(baseFragment == null){
+            return;
+        }
         if(response.value != null){
             Double value = response.value;
             value = Math.round(value * 100.0) / 100.0;
@@ -115,6 +118,9 @@ public class PercentageFragment extends BaseFragment implements CalculatorContra
 
     @Override
     public void setCurrencies(ArrayList<Currency> currencies) {
+        if(baseFragment == null){
+            return;
+        }
         this.currencies = currencies;
         if(autoOpenDialog){
             openCurrencyList();
