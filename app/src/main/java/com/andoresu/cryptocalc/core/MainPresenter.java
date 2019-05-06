@@ -8,6 +8,7 @@ import com.andoresu.cryptocalc.client.ObserverResponse;
 import com.andoresu.cryptocalc.client.ServiceGenerator;
 import com.andoresu.cryptocalc.core.contact.ContactModel;
 import com.andoresu.cryptocalc.core.contact.ContactService;
+import com.andoresu.cryptocalc.utils.SecureData;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +54,7 @@ public class MainPresenter implements MainContract.ActionsListener{
                     @Override
                     public void onNext(Response<ResponseBody> responseBodyResponse) {
                         super.onNext(responseBodyResponse);
+                        SecureData.savePhones(true);
                         Log.i(TAG, "onNext: contacts sended");
                     }
                 });

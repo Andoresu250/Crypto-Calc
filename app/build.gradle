@@ -74,6 +74,9 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$rootProject.glide"
     annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glide"
 
+    /*Secure data*/
+    implementation "de.adorsys.android:securestoragelibrary:$rootProject.securestoragelibrary"
+
     /*Rest Client*/
     implementation "com.google.code.gson:gson:$rootProject.gson"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit"
