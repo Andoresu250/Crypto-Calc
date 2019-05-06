@@ -13,6 +13,7 @@
             android:icon="@drawable/ic_chart"
             android:title="@string/salePercentage" />
         <item
+            android:visible="false"
             android:id="@+id/navLogout"
             android:icon="@drawable/ic_logout"
             android:title="@string/logout" />

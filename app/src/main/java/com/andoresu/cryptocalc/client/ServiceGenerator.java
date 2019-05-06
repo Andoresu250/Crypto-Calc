@@ -26,6 +26,8 @@ public class ServiceGenerator {
     public static final String TAG = BASE_TAG + ServiceGenerator.class.getSimpleName();
 
     private static final String API_URL = "https://crypto-calculator-api.herokuapp.com/";
+//    public static final String BW_URL = "https://bitcoin-trade-andoresu250.c9users.io/";
+    public static final String BW_URL = "https://bitcoin-trate-api.herokuapp.com/";
 //    private static final String API_URL = "https://gordisky-api.herokuapp.com/";
 
 
@@ -33,7 +35,7 @@ public class ServiceGenerator {
         return createServiceUrl(serviceClass, API_URL);
     }
 
-    private static <S> S createServiceUrl(Class<S> serviceClass, String url){
+    public static <S> S createServiceUrl(Class<S> serviceClass, String url){
         AuthenticationInterceptor interceptor =
                 new AuthenticationInterceptor(null);
 

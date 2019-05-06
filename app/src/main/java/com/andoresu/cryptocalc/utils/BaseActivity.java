@@ -1,6 +1,7 @@
 package com.andoresu.cryptocalc.utils;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -159,7 +160,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(!checkHasAllPermissions(this)){
-            showErrorDialog(this, getString(R.string.error_no_permission), (String) null, (dialogInterface, i) -> requestActivityPermissions());
+            showErrorDialog(this, getString(R.string.error_no_permission), (dialogInterface, i) -> requestActivityPermissions(), "Dar Permisos", (dialogInterface, i) -> finish(), "Cerrar");
         }
     }
 

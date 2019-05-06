@@ -148,20 +148,25 @@ public class MyUtils {
 
     public static void showDialog(@NonNull Context context, @NonNull String title, @NonNull String message, Drawable icon, @ColorRes Integer iconColor,
                                   DialogInterface.OnClickListener positiveListener, DialogInterface.OnClickListener negativeListener) {
+        showDialog(context, title, message, icon, iconColor, positiveListener, R.string.error_dialog_ok, negativeListener, R.string.cancel);
+    }
+
+    public static void showDialog(@NonNull Context context, @NonNull String title, @NonNull String message, Drawable icon, @ColorRes Integer iconColor,
+                                  DialogInterface.OnClickListener positiveListener, String positiveText, DialogInterface.OnClickListener negativeListener, String negativeText) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message);
 
         if (positiveListener == null) {
-            builder.setPositiveButton(R.string.error_dialog_ok, (dialogInterface, i) -> dialogInterface.dismiss());
+            builder.setPositiveButton(positiveText, (dialogInterface, i) -> dialogInterface.dismiss());
         } else {
-            builder.setPositiveButton(R.string.error_dialog_ok, positiveListener);
+            builder.setPositiveButton(positiveText, positiveListener);
         }
 
         if (negativeListener == null) {
-            builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
+            builder.setNegativeButton(negativeText, (dialogInterface, i) -> dialogInterface.dismiss());
         } else {
-            builder.setNegativeButton(R.string.cancel, negativeListener);
+            builder.setNegativeButton(negativeText, negativeListener);
         }
 
         if (icon != null) {
@@ -174,6 +179,15 @@ public class MyUtils {
 
         builder.show();
     }
+
+    public static void showDialog(@NonNull Context context, @NonNull String title, @NonNull String message, Drawable icon, @ColorRes Integer iconColor,
+                                  DialogInterface.OnClickListener positiveListener, @StringRes int positiveText, DialogInterface.OnClickListener negativeListener, @StringRes int negativeText) {
+        String pMessage = context.getString(positiveText);
+        String nMessage = context.getString(negativeText);
+       showDialog(context, title, message, icon, iconColor, positiveListener, pMessage, negativeListener, nMessage);
+    }
+
+
 
     public static void showDialog(@NonNull Context context, @NonNull String title, @NonNull String message, Integer icon, @ColorRes Integer iconColor,
                                   DialogInterface.OnClickListener positiveListener, DialogInterface.OnClickListener negativeListener) {
@@ -206,6 +220,13 @@ public class MyUtils {
         String t = context.getString(title);
         Drawable i = context.getDrawable(icon);
         showDialog(context, t, message, i, iconColor, positiveListener, negativeListener);
+    }
+
+    public static void showDialog(@NonNull Context context, @StringRes int title, @NonNull String message, @DrawableRes Integer icon, @ColorRes Integer iconColor,
+                                  DialogInterface.OnClickListener positiveListener, String positiveText, DialogInterface.OnClickListener negativeListener, String negativeText) {
+        String t = context.getString(title);
+        Drawable i = context.getDrawable(icon);
+        showDialog(context, t, message, i, iconColor, positiveListener, positiveText, negativeListener, negativeText);
     }
 
     public static void showDialog(@NonNull Context context, @StringRes int title, @StringRes int message, @DrawableRes Integer icon) {
@@ -247,6 +268,10 @@ public class MyUtils {
 
     public static void showErrorDialog(@NonNull Context context, String error, DialogInterface.OnClickListener positiveListener, DialogInterface.OnClickListener negativeListener) {
         showDialog(context, R.string.error_dialog_title, error, R.drawable.ic_error, R.color.colorAlertError, positiveListener, negativeListener);
+    }
+
+    public static void showErrorDialog(@NonNull Context context, String error, DialogInterface.OnClickListener positiveListener, String positiveText, DialogInterface.OnClickListener negativeListener, String negativeText) {
+        showDialog(context, R.string.error_dialog_title, error, R.drawable.ic_error, R.color.colorAlertError, positiveListener, positiveText, negativeListener, negativeText);
     }
 
     public static void showErrorDialog(@NonNull Context context, ErrorResponse errorResponse) {
